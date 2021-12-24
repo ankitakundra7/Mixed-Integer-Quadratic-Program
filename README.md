@@ -1,4 +1,5 @@
-Problem Overview
+**Problem Overview:**
+
 One of the most common problems in predictive analytics is variable selection for regression. Direct variable selection using optimization has long been dismissed by the statistics/analytics community because of computational difficulties. This computational issue was part of the motivation for the development of LASSO and ridge regression. However, in the recent past there have been tremendous advancements in optimization software, specifically the ability to solve mixed integer quadratic programs (MIQP). This project will pose the variable selection problem for regression as an MIQP which you will solve using gurobi. You will compare the results you find to LASSO to see if the additional ‘shrinkage’ component of LASSO really is more beneficial than finding the ‘best’ set of variables to include in your regression.
 
 Direct Variable Selection – MIQP Problem
@@ -30,7 +31,7 @@ min %(𝛽( + 𝛽*𝑥,* + ⋯ + 𝛽.𝑥,. − 𝑦,)2 + 𝜆 %S𝛽6 S,
 ,4*	64*
 where 𝜆 is a hyperparameter to be chosen using cross-validation. It turns out that if 𝜆 is large enough, several values of 𝛽 will be forced to be equal to zero. This model also has the benefit of ‘shrinking’ the 𝛽s closer to zero, which achieves variance reduction. Note again that 𝛽( is not included in the 𝜆 sum. You should never penalize a model for having an intercept term. The standard package in Python to solve the LASSO problem is scikit learn. In this project you will need to use scikit learn to solve the LASSO problem.
 
-Specifics
+**Specifics:**
 1)	On canvas there are 2 data sets that include x and y data. One data set is a training data set, and one is a test data set. You will follow the data science pipeline carefully here. You will first do 10-fold cross validation on the training set to pick k or 𝜆. Then using the optimal values of k or 𝜆 you will fit your 𝛽s using the entire training set. Then with those 𝛽s you will make a prediction of the y values on the test set, and compare your prediction of y, to the true value of y in the test set.
 2)	In order to do cross validation on the MIQP model you will have to write your own cross validation code. Randomly shuffle your data and split it into 10 folds. You can use the ‘np.random.choice()’ function in Python to shuffle your data. There are 50 X variables, and you will need to try k = 5, 10, 15, …, 50 in your cross validation. This means to do 10-fold cross validation with all possible values of k, you will have to solve an MIQP
 model 100 times! Pick the value of k that corresponds to the smallest cross validation error: for a given value of k, sum each validation set’s sum of squared errors using the
